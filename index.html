@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niraj & Nirali - Choreography & Anchoring Report</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        wedding: {
+                            base: '#FDFCF8',    // Creamy white
+                            primary: '#D4AF37', // Gold
+                            secondary: '#E6A49F', // Dusty Pink
+                            text: '#2D2D2D',    // Soft Black
+                            accent: '#C04000',  // Deep Marigold
+                            card: '#FFF8F0'     // Light Peach/Beige
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FDFCF8;
+            color: #2D2D2D;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 350px;
+            max-height: 400px;
+            margin: 0 auto;
+        }
+        /* Custom scrollbar for aesthetic feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF8F0; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E6A49F; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37; 
+        }
+        .tab-active {
+            border-bottom: 3px solid #D4AF37;
+            color: #C04000;
+            font-weight: 700;
+        }
+        .tab-inactive {
+            color: #6b7280;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-inactive:hover {
+            color: #D4AF37;
+        }
+    </style>
+
+    <!-- Placeholder Comments Required by Instructions -->
+    <!-- Chosen Palette: Warm Wedding Neutrals (Cream, Gold, Dusty Pink, Marigold) -->
+    <!-- Application Structure Plan: 
+         1. Hero Section: Formal introduction.
+         2. Executive Summary: High-level metrics (Total Cost, Total Time).
+         3. Performance Deep Dive: Interactive tabs to switch between Engagement and Haldi events. visualization of duration to understand effort distribution.
+         4. Financial Breakdown: Detailed calculation view and a visual split of costs (Choreo vs Anchoring).
+         5. Why this structure? It moves from the emotional (event details) to the practical (billing), allowing the client to verify the specific performances before understanding the final bill. -->
+    <!-- Visualization & Content Choices: 
+         1. Bar Charts for Performance Duration: Goal -> Compare length of dances. Interaction -> Hover for details. Justification -> Length directly correlates to billing; easy to spot outliers.
+         2. Doughnut Chart for Cost: Goal -> Show proportion of fixed vs variable costs. Interaction -> Tooltip. Justification -> Simple part-to-whole comparison.
+         3. Interactive Calculator Card: Goal -> Explain the math. Justification -> Transparency in billing is key. 
+         4. NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="font-sans antialiased selection:bg-wedding-secondary selection:text-white pb-12">
+
+    <!-- Hero Section -->
+    <header class="w-full bg-wedding-card border-b-4 border-wedding-primary py-10 px-4 text-center shadow-sm">
+        <h2 class="text-wedding-accent uppercase tracking-widest text-sm font-bold mb-2">M. Hemantika Presents</h2>
+        <h1 class="font-serif text-4xl md:text-5xl text-wedding-text mb-2">Niraj & Nirali</h1>
+        <p class="font-serif italic text-xl text-wedding-secondary">Wedding Choreography & Event Services Report</p>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 mt-8 space-y-12">
+
+        <!-- Introduction -->
+        <section class="text-center max-w-3xl mx-auto">
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Welcome to your personalized <strong>Event Services Dashboard</strong>. This interactive report provides a transparent breakdown of all choreography performances for both the Engagement and Haldi ceremonies, as well as a detailed calculation of the final billing based on performance duration and anchoring services.
+            </p>
+        </section>
+
+        <!-- Key Metrics Cards -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-wedding-secondary text-center transform hover:-translate-y-1 transition duration-300">
+                <h3 class="text-gray-500 text-sm uppercase tracking-wide font-semibold">Grand Total</h3>
+                <p class="text-3xl font-serif text-wedding-accent font-bold mt-2">₹64,672</p>
+                <p class="text-xs text-gray-400 mt-1">Includes all taxes & services</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-wedding-primary text-center transform hover:-translate-y-1 transition duration-300">
+                <h3 class="text-gray-500 text-sm uppercase tracking-wide font-semibold">Total Billed Time</h3>
+                <p class="text-3xl font-serif text-wedding-text font-bold mt-2">64.32 Mins</p>
+                <p class="text-xs text-gray-400 mt-1">Converted from 56m + 475s</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-wedding-secondary text-center transform hover:-translate-y-1 transition duration-300">
+                <h3 class="text-gray-500 text-sm uppercase tracking-wide font-semibold">Total Performances</h3>
+                <p class="text-3xl font-serif text-wedding-text font-bold mt-2">16</p>
+                <p class="text-xs text-gray-400 mt-1">Across 2 Events</p>
+            </div>
+        </section>
+
+        <!-- Performance Analysis Section -->
+        <section class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+            <div class="p-6 md:p-8 bg-wedding-card">
+                <h2 class="font-serif text-2xl text-wedding-text mb-3">Performance Duration Analysis</h2>
+                <p class="text-gray-600 text-sm mb-6">
+                    Analyze the time distribution for each performance. This breakdown helps visualize the effort and stage time allocated to each group or soloist. Use the tabs below to switch between events.
+                </p>
+
+                <!-- Tabs -->
+                <div class="flex space-x-6 border-b border-gray-200 mb-6">
+                    <button id="tab-engagement" class="tab-active py-2 px-4 text-lg transition-colors focus:outline-none" onclick="switchTab('engagement')">
+                        Engagement
+                    </button>
+                    <button id="tab-haldi" class="tab-inactive py-2 px-4 text-lg transition-colors focus:outline-none" onclick="switchTab('haldi')">
+                        Haldi
+                    </button>
+                </div>
+
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <!-- Chart Area -->
+                    <div class="w-full lg:w-3/5">
+                        <div class="chart-container">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- List Details Area -->
+                    <div class="w-full lg:w-2/5 flex flex-col justify-center">
+                        <h3 class="font-serif text-lg text-wedding-primary mb-4 border-b border-gray-100 pb-2">Detailed Lineup</h3>
+                        <div class="overflow-y-auto max-h-[350px] pr-2 space-y-3" id="performanceList">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Financial Breakdown Section -->
+        <section class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 p-6 md:p-8">
+            <h2 class="font-serif text-2xl text-wedding-text mb-2">Financial Breakdown & Invoice</h2>
+            <p class="text-gray-600 text-sm mb-8">
+                Understanding your invoice: Costs are split between a variable choreography fee (based on total minutes) and a fixed anchoring charge.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                
+                <!-- Calculation Card -->
+                <div class="bg-wedding-card p-6 rounded-xl border border-wedding-secondary/30">
+                    <h3 class="text-wedding-accent font-bold uppercase text-xs tracking-wider mb-4">Calculation Logic</h3>
+                    
+                    <!-- Step 1 -->
+                    <div class="flex justify-between items-center mb-4 pb-4 border-b border-gray-200 border-dashed">
+                        <div>
+                            <p class="font-bold text-gray-700">Total Raw Time</p>
+                            <p class="text-xs text-gray-500">56 mins + 475 seconds</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-mono text-lg text-wedding-text">64.32 min</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="flex justify-between items-center mb-4 pb-4 border-b border-gray-200 border-dashed">
+                        <div>
+                            <p class="font-bold text-gray-700">Choreography Rate</p>
+                            <p class="text-xs text-gray-500">Per minute charge</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-mono text-lg text-wedding-text">× ₹850</span>
+                        </div>
+                    </div>
+
+                    <!-- Subtotal -->
+                    <div class="flex justify-between items-center mb-4 pb-4 border-b border-gray-200 border-dashed bg-white/50 p-2 rounded">
+                        <div>
+                            <p class="font-bold text-wedding-primary">Choreography Subtotal</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-mono text-xl font-bold text-wedding-primary">₹54,672</span>
+                        </div>
+                    </div>
+
+                    <!-- Anchoring -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <p class="font-bold text-gray-700">Anchoring Service</p>
+                            <p class="text-xs text-gray-500">Fixed Flat Rate</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-mono text-lg text-wedding-text">+ ₹10,000</span>
+                        </div>
+                    </div>
+
+                    <!-- Total -->
+                    <div class="bg-wedding-accent text-white p-4 rounded-lg flex justify-between items-center shadow-lg">
+                        <span class="font-serif italic text-lg">Grand Total</span>
+                        <span class="font-bold text-2xl">₹64,672</span>
+                    </div>
+                </div>
+
+                <!-- Visualization Chart -->
+                <div class="flex flex-col items-center">
+                    <h3 class="text-gray-500 text-sm font-semibold mb-4">Cost Distribution</h3>
+                    <div class="chart-container" style="height: 300px; max-height: 300px; max-width: 300px;">
+                        <canvas id="costChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="text-xs text-gray-500 italic max-w-xs">
+                            The majority of the budget (approx 85%) is allocated to choreography services based on the duration of performances.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center pt-8 border-t border-gray-200">
+            <p class="font-serif text-wedding-text text-lg">Thank you for letting M. Hemantika be a part of your special day!</p>
+            <p class="text-gray-400 text-xs mt-2">Generated for Niraj & Nirali Wedding | Report ID: MH-2024-NN</p>
+        </footer>
+
+    </main>
+
+    <!-- JS Logic -->
+    <script>
+        // --- Data Definitions ---
+        const engagementData = [
+            { name: "Niraj Couple", timeStr: "05:28", seconds: 328 },
+            { name: "Dipika Solo", timeStr: "02:47", seconds: 167 },
+            { name: "Nirali Couple", timeStr: "04:37", seconds: 277 },
+            { name: "Kids Group", timeStr: "04:28", seconds: 268 },
+            { name: "Mast Malang", timeStr: "02:00", seconds: 120 }
+        ];
+
+        const haldiData = [
+            { name: "Niraj Friends", timeStr: "05:00", seconds: 300 },
+            { name: "Nirali Friends", timeStr: "03:52", seconds: 232 },
+            { name: "Shaina Solo", timeStr: "03:06", seconds: 186 },
+            { name: "Mama Couple", timeStr: "03:53", seconds: 233 },
+            { name: "Bhai Bhabhi", timeStr: "03:35", seconds: 215 },
+            { name: "Brothers Group", timeStr: "02:31", seconds: 151 },
+            { name: "Niraj Nirali Duo", timeStr: "02:31", seconds: 151 },
+            { name: "Cousin Group", timeStr: "04:15", seconds: 255 },
+            { name: "Sister-Bhabhi", timeStr: "04:05", seconds: 245 },
+            { name: "Niraj Solo", timeStr: "04:27", seconds: 267 },
+            { name: "Nirali Solo", timeStr: "06:50", seconds: 410, note: "Ishq Hai 30s learned" }
+        ];
+
+        // --- Chart References ---
+        let perfChartInstance = null;
+        let costChartInstance = null;
+
+        // --- Functions ---
+
+        // Helper to format seconds back to M:SS for tooltips
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = seconds % 60;
+            return `${m}:${s < 10 ? '0' : ''}${s}`;
+        }
+
+        // Initialize Charts
+        function initCharts() {
+            // 1. Performance Chart (Bar)
+            const ctxPerf = document.getElementById('performanceChart').getContext('2d');
+            
+            perfChartInstance = new Chart(ctxPerf, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Duration (Seconds)',
+                        data: [],
+                        backgroundColor: 'rgba(212, 175, 55, 0.7)', // Gold
+                        borderColor: 'rgba(212, 175, 55, 1)',
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        hoverBackgroundColor: 'rgba(192, 64, 0, 0.8)' // Marigold hover
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Horizontal bar chart better for long names
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` Duration: ${formatTime(context.raw)}`;
+                                }
+                            },
+                            backgroundColor: '#FFF8F0',
+                            titleColor: '#2D2D2D',
+                            bodyColor: '#2D2D2D',
+                            borderColor: '#D4AF37',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            title: { display: true, text: 'Duration (Seconds)' }
+                        },
+                        y: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+
+            // 2. Cost Chart (Doughnut)
+            const ctxCost = document.getElementById('costChart').getContext('2d');
+            costChartInstance = new Chart(ctxCost, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Choreography', 'Anchoring'],
+                    datasets: [{
+                        data: [54672, 10000],
+                        backgroundColor: [
+                            '#E6A49F', // Dusty Pink
+                            '#D4AF37'  // Gold
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { family: "'Lato', sans-serif" },
+                                usePointStyle: true
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.raw;
+                                    const total = context.chart._metasets[context.datasetIndex].total;
+                                    const percentage = ((value / total) * 100).toFixed(1) + '%';
+                                    return ` ₹${value.toLocaleString()} (${percentage})`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Render Performance Data
+        function renderPerformanceData(eventType) {
+            const data = eventType === 'engagement' ? engagementData : haldiData;
+            const listContainer = document.getElementById('performanceList');
+            
+            // 1. Update Chart
+            perfChartInstance.data.labels = data.map(d => d.name);
+            perfChartInstance.data.datasets[0].data = data.map(d => d.seconds);
+            // Change color slightly based on event
+            perfChartInstance.data.datasets[0].backgroundColor = eventType === 'engagement' 
+                ? 'rgba(212, 175, 55, 0.7)' // Gold for Engagement
+                : 'rgba(230, 164, 159, 0.8)'; // Pinkish for Haldi
+            
+            perfChartInstance.update();
+
+            // 2. Update List
+            listContainer.innerHTML = '';
+            data.forEach((item, index) => {
+                const row = document.createElement('div');
+                row.className = "flex justify-between items-center bg-white p-3 rounded border border-gray-100 shadow-sm hover:shadow-md transition-shadow";
+                
+                const nameContent = `
+                    <div class="flex items-center">
+                        <span class="w-6 h-6 rounded-full bg-wedding-card text-wedding-accent flex items-center justify-center text-xs font-bold mr-3">${index + 1}</span>
+                        <div>
+                            <p class="font-medium text-wedding-text">${item.name}</p>
+                            ${item.note ? `<p class="text-[10px] text-gray-400 italic">${item.note}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                const timeContent = `<span class="font-mono text-sm text-gray-600 bg-gray-50 px-2 py-1 rounded">${item.timeStr}</span>`;
+                
+                row.innerHTML = nameContent + timeContent;
+                listContainer.appendChild(row);
+            });
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabName) {
+            const btnEng = document.getElementById('tab-engagement');
+            const btnHaldi = document.getElementById('tab-haldi');
+
+            if (tabName === 'engagement') {
+                btnEng.className = "tab-active py-2 px-4 text-lg transition-colors focus:outline-none";
+                btnHaldi.className = "tab-inactive py-2 px-4 text-lg transition-colors focus:outline-none";
+                renderPerformanceData('engagement');
+            } else {
+                btnEng.className = "tab-inactive py-2 px-4 text-lg transition-colors focus:outline-none";
+                btnHaldi.className = "tab-active py-2 px-4 text-lg transition-colors focus:outline-none";
+                renderPerformanceData('haldi');
+            }
+        }
+
+        // Initial Load
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            // Load Engagement by default
+            renderPerformanceData('engagement');
+        });
+
+    </script>
+</body>
+</html>
